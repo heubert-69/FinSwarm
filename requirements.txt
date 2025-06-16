@@ -1,0 +1,13 @@
+torch
+pandas
+numpy
+transformers
+yfinance
+fpdf
+streamlit
+fred
+smtplib
+email
+textblob
+python-dotenv
+fredapi
