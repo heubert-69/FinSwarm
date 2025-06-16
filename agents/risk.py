@@ -6,11 +6,11 @@ class RiskAgent:
 	def __init__(self, risk_free_rate=0.05):
 		self.risk_free_rate = risk_free_rate / 252 #daily risk free rate
 	def compute_volatility(self, prices):
-		returns = prices.pct_change.dropna()
+		returns = prices.pct_change().dropna()
 		return returns.std() * np.sqrt(252)
 
 	def compute_semi_deviation(self, prices):
-		returns = prices.pct_change.dropna()
+		returns = prices.pct_change().dropna()
 		negative_returns = returns[returns < 0]
 		return negative_returns.std() * np.sqrt(252)
 	def compute_max_drawdown(self, prices):
@@ -19,7 +19,7 @@ class RiskAgent:
 		drawdown = (cumulative - peak) / peak
 		return drawdown.min()
 	def compute_sharpe_ratio(self, prices):
-		returns = prices.pct_change.dropna()
+		returns = prices.pct_change().dropna()
 		excess_returns = returns - self.risk_free_rate
 		sharpe = excess_returns.mean() / excess_returns.std()
 		return sharpe
@@ -53,7 +53,7 @@ class RiskAgent:
 				"Volatility": round(self.compute_volatility(close_prices), 4),
 				"Semi-Deviation": round(self.compute_semi_deviation(close_prices), 4),
 				"Sharpe-Ratio": round(self.compute_sharpe_ratio(close_prices), 4),
-				"Max-Drawdown": round(self.compute_max_drawdown(close_prices), 4)
+				"Max-Drawdown": round(self.compute_max_drawdown(close_prices), 4),
 			}
 
 		#Adding Fundamental Risk View

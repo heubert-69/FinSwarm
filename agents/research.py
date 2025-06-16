@@ -4,10 +4,14 @@ import numpy as np
 from datetime import datetime, timedelta
 import pandas as pd
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class ResearchAgent:
-    def __init__(self):
-        self.fred = Fred(api_key=os.getenv("FRED_API_KEY"))
+    def __init__(self, api_key=None):
+        self.api_key = api_key or os.getenv("FRED_API_KEY")
+        self.fred = Fred(api_key=self.api_key)
 
     def get_price_data(self, tickers, period="3mo"):
         data = {}

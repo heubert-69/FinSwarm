@@ -4,12 +4,17 @@ from datetime import datetime
 from agents.research import ResearchAgent
 from agents.risk import RiskAgent
 from agents.report import ReportAgent
-from agents.phi_llm import PhiLLM
+from llm.phi_llm import PhiLLM
 from fpdf import FPDF
 import matplotlib.pyplot as plt
 from textblob import TextBlob
 import smtplib
 from email.message import EmailMessage
+from dotenv import load_dotenv
+
+#using my api keys
+load_dotenv()
+
 
 st.set_page_config(page_title="FinSwarm AI", layout="wide")
 
@@ -97,12 +102,12 @@ if st.button("Run Analysis"):
     tickers_list = [t.strip().upper() for t in tickers.split(",")]
 
     with st.spinner("🔍 Collecting data..."):
-        research = ResearchAgent()
+        research = ResearchAgent(os.getenv("FRED_API_KEY"))
         research_data = research.collect(tickers_list)
 
     with st.spinner("📊 Analyzing risk..."):
         risk = RiskAgent()
-        risk_data = risk.analyze(research_data["prices"], research_data["fundamentals"])
+        risk_data = risk.analyze(research_data)
 
     with st.spinner("🧠 Generating report..."):
         llm = PhiLLM()

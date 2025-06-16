@@ -7,7 +7,8 @@ fpdf
 streamlit
 fred
 smtplib
-email
+email-validator
+bitsandbytes
 textblob
 python-dotenv
 fredapi
