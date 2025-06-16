@@ -44,10 +44,10 @@ HF_TOKEN=your_huggingface_token
 🛠️ Running Locally
 You can test the pipeline via the test script:
 
-bash
-Copy
-Edit
+```bash
 python test_llm.py
+```
+
 This script will:
 
 Fetch financial data for companies (e.g., AAPL, MSFT)
